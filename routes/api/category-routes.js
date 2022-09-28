@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     } res.json({message: "working"});
   }) .catch(Oops => {
       console.log(Oops);
-      res.status(500).json(Oops)
+      res.status(500).json(Oops.message)
   })
 });
 
@@ -40,7 +40,7 @@ router.get('/:id', (req, res) => {
     } res.json({message: "working"});
   }) .catch(Oops => {
       console.log(Oops);
-      res.status(500).json(Oops)
+      res.status(500).json(Oops.message)
   })
 });
 
@@ -48,14 +48,10 @@ router.post('/', (req, res) => {
   // create a new category
   Category.create({
     cat_name: req.body.cat_name
-  }) .then(dbDataUnfound => {
-    if(!dbDataUnfound){
-      res.status(404).json({message: "Sorry buddy can't find nothin here"})
-      return;
-    } res.json({message: "working"});
-  }) .catch(Oops => {
+  }) .then(() => {res.status(201).json({message: "It's here!"});}
+  ) .catch(Oops => {
       console.log(Oops);
-      res.status(500).json(Oops)
+      res.status(500).json(Oops.message)
   })
 });
 
@@ -72,7 +68,7 @@ router.put('/:id', (req, res) => {
     } res.json({message: "working"});
   }) .catch(Oops => {
       console.log(Oops);
-      res.status(500).json(Oops)
+      res.status(500).json(Oops.message)
   })
 });
 
@@ -89,7 +85,7 @@ router.delete('/:id', (req, res) => {
     } res.json({message: "working"});
   }) .catch(Oops => {
       console.log(Oops);
-      res.status(500).json(Oops)
+      res.status(500).json(Oops.message)
   })
 });
 
