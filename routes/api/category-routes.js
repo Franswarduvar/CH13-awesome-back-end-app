@@ -8,14 +8,14 @@ router.get('/', (req, res) => {
   // be sure to include its associated Products 
   Category.findAll({
     include: {
-      module: Product,
-      contense: ["id", "product_name", "price", "stock", "catagory_id"]
+      model: Product,
+      attributes: ["id", "product_name", "price", "stock", "category_id"]
     }
-  }) .then(dbDataUnfound => {
-    if(!dbDataUnfound){
+  }) .then(dbCategoryData => {
+    if(!dbCategoryData){
       res.status(404).json({message: "Sorry buddy can't find nothin here"})
       return;
-    } res.json({message: "working"});
+    } res.json(dbCategoryData);
   }) .catch(Oops => {
       console.log(Oops);
       res.status(500).json(Oops.message)
@@ -30,14 +30,14 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     },
     include: {
-      module: Product,
-      contense:  ["id", "product_name", "price", "stock", "catagory_id"]
+      model: Product,
+      attributes:  ["id", "product_name", "price", "stock", "category_id"]
     }
-  }) .then(dbDataUnfound => {
-    if(!dbDataUnfound){
+  }) .then(dbCategoryData => {
+    if(!dbCategoryData){
       res.status(404).json({message: "Sorry buddy can't find nothin here"})
       return;
-    } res.json({message: "working"});
+    } res.json(dbCategoryData);
   }) .catch(Oops => {
       console.log(Oops);
       res.status(500).json(Oops.message)
@@ -61,11 +61,11 @@ router.put('/:id', (req, res) => {
   where:{
     id: req.params.id
   }
- })  .then(dbDataUnfound => {
-    if(!dbDataUnfound){
+ })  .then(dbCategoryData => {
+    if(!dbCategoryData){
       res.status(404).json({message: "Sorry buddy can't find nothin here"})
       return;
-    } res.json({message: "working"});
+    } res.json(dbCategoryData);
   }) .catch(Oops => {
       console.log(Oops);
       res.status(500).json(Oops.message)
@@ -78,12 +78,11 @@ router.delete('/:id', (req, res) => {
   where:{
     id: req.params.id
   }
- }) .then(dbDataUnfound => {
-    if(!dbDataUnfound){
+ }) .then(dbCategoryData => {
+    if(!dbCategoryData){
       res.status(404).json({message: "Sorry buddy can't find nothin here"})
       return;
-    } res.json({message: "working"});
-  }) .catch(Oops => {
+    } res.json(dbCategoryData);
       console.log(Oops);
       res.status(500).json(Oops.message)
   })
