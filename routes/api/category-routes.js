@@ -47,12 +47,19 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // create a new category
   Category.create({
-    cat_name: req.body.cat_name
-  }) .then(() => {res.status(201).json({message: "It's here!"});}
-  ) .catch(Oops => {
-      console.log(Oops);
-      res.status(500).json(Oops.message)
-  })
+    category_name: req.body.category_name
+  }) 
+  .then(dbCatData => res.json(dbCatData))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
+  // .then(() => {res.status(201).json({message: "It's here!"});}
+  // ) 
+  // .catch(Oops => {
+  //     console.log(Oops);
+  //     res.status(500).json(Oops.message)
+  // })
 });
 
 router.put('/:id', (req, res) => {
@@ -74,7 +81,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
- Category.delete({
+ Category.destroy({
   where:{
     id: req.params.id
   }

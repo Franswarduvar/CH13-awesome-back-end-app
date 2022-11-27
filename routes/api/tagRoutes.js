@@ -11,10 +11,11 @@ router.get('/', (req, res) => {
       module: Product,
       attributes: ['product_name','stock','price','category_id']
     }
-  }) .then(dbTagData => res.json(dbTagData))
-  .catch(Oops => {
-    console.log(Oops);
-    res.status(500).json(Oops);
+  }) 
+  .then(dbTagData => res.json(dbTagData))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
   });
 });
 
@@ -29,10 +30,11 @@ router.get('/:id', (req, res) => {
       module: Product,
       attributes: ['product_name','stock','price','category_id']
     }
-  }) .then(dbTagData => res.json(dbTagData))
-  .catch(Oops => {
-    console.log(Oops);
-    res.status(500).json(Oops);
+  }) 
+  .then(dbTagData => res.json(dbTagData))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
   });
 });
 
@@ -40,10 +42,11 @@ router.post('/', (req, res) => {
   // create a new tag
   Tag.create({
     tag_name: req.body.tag_name
-  }) .then(dbTagData => res.json(dbTagData))
-  .catch(Oops => {
-    console.log(Oops);
-    res.status(500).json(Oops);
+  }) 
+  .then(dbTagData => res.json(dbTagData))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
   });
 });
 
@@ -53,13 +56,15 @@ router.put('/:id', (req, res) => {
     where: {
       id: req.params.id
     }
-  }) .then(dbTagData => {
+  }) 
+  .then(dbTagData => {
     if(!dbTagData){
       res.status(404).json({message: 'Oh no bro no tag was found with this id :('})
     }
-  }) .catch(Oops => {
-    console.log(Oops);
-    res.status(500).json(Oops);
+  })
+   .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
   });
 });
 
@@ -69,13 +74,15 @@ router.delete('/:id', (req, res) => {
     where: {
       id: req.params.id
     }
-  }) .then(dbTagData => {
+  }) 
+  .then(dbTagData => {
     if(!dbTagData){
       res.status(404).json({message: 'Oooo ohhhh nooo bro I was unable to find a tag with this id'})
     }
-  }) .catch(Oops => {
-    console.log(Oops);
-    res.status(500).json(Oops);
+  }) 
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
   });
 });
 
